@@ -1,0 +1,28 @@
+# @package data
+defaults:
+  - segmentation/default
+
+class: shapenet.ShapeNetDataset
+dataroot: data
+task: segmentation
+normal: True
+color: True
+use_category: True
+category: 'Real_Grape'
+first_subsampling: 0.01
+pre_transforms:
+  - transform: NormalizeScale
+  #- transform: GridSampling3D
+  #  params:
+  #    size: ${data.first_subsampling}
+train_transforms:
+  - transform: FixedPoints
+    params:
+      num: [20000]
+      replace: True
+test_transforms:
+  - transform: FixedPoints
+    params:
+      num: [20000]
+      replace: True
+val_transforms: ${data.test_transforms}
